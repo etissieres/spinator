@@ -21,6 +21,7 @@ target/
 build/
 *.iml
 gradle/*
+libs/
 
 # Local configuration file (sdk path, etc)
 local.properties
