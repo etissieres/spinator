@@ -7,21 +7,23 @@ import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.games.Games;
 import com.iceteam.spinator.R;
+import com.iceteam.spinator.game.GdxGame;
 
-public class MainActivity extends Activity implements
+public class GameActivity extends AndroidApplication implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "GameActivity";
 
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
 
@@ -50,14 +52,8 @@ public class MainActivity extends Activity implements
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
-        setContentView(R.layout.main_activity);
-        Button launchGameBt = (Button) findViewById(R.id.main_activity_launch_bt);
-        launchGameBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, GameActivity.class));
-            }
-        });
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        initialize(new GdxGame(), config);
     }
 
     /**
